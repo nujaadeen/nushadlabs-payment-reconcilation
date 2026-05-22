@@ -1,0 +1,9 @@
+# Copy this file to docker-compose.override.yml and adjust as needed.
+# Docker Compose automatically merges override.yml into docker-compose.yml on `docker compose up`.
+
+version: "3.8"
+
+services:
+  recon-app:
+    environment:
+      RECON_THREAD_POOL_SIZE: 8

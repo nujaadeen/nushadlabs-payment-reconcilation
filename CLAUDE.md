@@ -30,9 +30,11 @@ pip install -r requirements.txt
 # Generate default 100-row CSV
 python generate_transactions.py
 
-# Large file generation
-python generate_transactions.py --count 1000000 --output ../data/txns.csv --seed 99
+# Generate seed data for MongoDB init (2M rows, ~393 MB)
+python generate_transactions.py --count 2000000 --output ../docker/mongo-init/transactions.csv --seed 42
 ```
+
+`docker/mongo-init/*.csv` files are git-ignored — regenerate them locally with the script before starting Docker services.
 
 ## Architecture
 
@@ -49,6 +51,25 @@ python generate_transactions.py --count 1000000 --output ../data/txns.csv --seed
 
 **Package root**: `com.nushadlabs.payment_reconcilation`
 
+## Docker
+
+```bash
+# First-time: generate the seed CSV (git-ignored, ~393 MB)
+cd data-generator && python generate_transactions.py \
+  --count 2000000 --output ../docker/mongo-init/transactions.csv --seed 42
+cd ..
+
+# Start all services (MongoDB + recon-app)
+docker compose up --build
+
+# Override thread pool or other env vars without editing docker-compose.yml
+cp docker-compose.override.yml.example docker-compose.override.yml
+# edit docker-compose.override.yml, then:
+docker compose up --build
+```
+
+`mongo_data` is a named volume — destroy it with `docker compose down -v` to re-run init scripts.
+
 ## Configuration notes
 
-`application.properties` currently only sets `spring.application.name`. Before the app can start successfully, it will need datasource configuration for JPA (e.g. H2 for local dev or PostgreSQL) and a MongoDB URI, otherwise Spring Boot auto-configuration will fail context load.
+`application.properties` currently only sets `spring.application.name`. Before the app can start successfully outside Docker, it will need a MongoDB URI and datasource configuration for JPA (e.g. H2 for local dev or PostgreSQL), otherwise Spring Boot auto-configuration will fail context load.

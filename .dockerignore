@@ -1,0 +1,28 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Build output (rebuilt inside Docker)
+target/
+
+# IDE & OS
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# Docker files (not needed inside image)
+docker-compose*.yml
+Dockerfile
+.dockerignore
+
+# Data & tooling
+docker/
+data-generator/
+
+# Docs
+*.md
+HELP.md
