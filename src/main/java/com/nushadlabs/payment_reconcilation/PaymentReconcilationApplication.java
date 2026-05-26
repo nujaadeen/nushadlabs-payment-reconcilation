@@ -3,7 +3,7 @@ package com.nushadlabs.payment_reconcilation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.nushadlabs.payment_reconcilation", "com.recon"})
+@SpringBootApplication
 public class PaymentReconcilationApplication {
 
 	public static void main(String[] args) {
