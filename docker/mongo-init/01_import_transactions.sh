@@ -7,7 +7,7 @@ COLLECTION="transactions"
 
 if [ ! -f "$CSV" ]; then
   echo "[init] WARNING: $CSV not found — skipping import."
-  echo "[init] Generate it with: python data-generator/generate_transactions.py --count 2000000 --output docker/mongo-init/transactions.csv --seed 42"
+  echo "[init] Generate it with: python data-generator/generate_transactions.py --count 10 --output docker/mongo-init/transactions.csv --seed 42"
   exit 0
 fi
 
