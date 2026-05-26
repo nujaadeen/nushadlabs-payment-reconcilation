@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: payment-reconcilation
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/recon_db}
+      database: ${SPRING_DATA_MONGODB_DATABASE:recon_db}
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+recon:
+  thread-pool-size: ${RECON_THREAD_POOL_SIZE:8}
